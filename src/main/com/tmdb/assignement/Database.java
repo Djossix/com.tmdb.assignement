@@ -3,8 +3,6 @@ package com.tmdb.assignement;
 import java.sql.*;
 import java.util.*;
 
-import javax.sql.DataSource;
-
 public class Database {
 
 	// THIS INFO IS NEEDED WHEN CONNECTING FROM SERVER!
@@ -49,6 +47,7 @@ public class Database {
 		try {
 			connectDatabase();
 			Statement statement = con.createStatement();
+			parser = new API_parser();
 
 			statement.executeUpdate(
 					"CREATE TABLE IF NOT EXISTS thriller (id VARCHAR(10) PRIMARY KEY NOT NULL, title VARCHAR(80) NOT NULL);");
@@ -119,7 +118,7 @@ public class Database {
 		try {
 
 			Statement stmnt = con.createStatement();
-			ResultSet rs = stmnt.executeQuery("SELECT * FROM " + genre + " LIMIT 10;");
+			ResultSet rs = stmnt.executeQuery("SELECT * FROM " + genre + " LIMIT 20;");
 
 			while (rs.next()) {
 				id = rs.getString(1);

@@ -14,20 +14,14 @@ public class App {
 	private static List<Handler> thriller = new ArrayList<>(), comedy = new ArrayList<>(), drama = new ArrayList<>(), scifi = new ArrayList<>();
 	
 	public static void main(String[] args) {
-		try {
-			dbLogic = new Database("jdbc:postgresql://localhost:5432/postgres",
-			        "postgres",
-			        "Lx0e1utY");
-			dbLogic.setUp();
-		} catch (SQLException e) {
-			System.err.println("Connection to database failed: " + e.getMessage());
-		}
+		setUpDB();
+		
 		while (true) {
 			try {
 				Scanner in = new Scanner(System.in);
 
-				System.out.println("Welcome to WarcraftRental - rent movies and TV-series.\n Make your choice in the menu below.\n\n"
-						+ "[M]ovies \n[T]V-Series \n[Q]uit \n");
+				System.out.println("Welcome to WarcraftRental - choose from a variety of movies.\nMake your choice in the menu below.\n\n"
+						+ "[M]ovies \n[Q]uit \n");
 				String menu = in.nextLine();
 
 				// Choice M, list genres menu.
@@ -39,39 +33,40 @@ public class App {
 					String choice;
 					switch (genre.toLowerCase()) {
 					case "t":
-						for (Handler movie : thriller) {
-							System.out.println(movie.toString() + "\n");
-							choice = in.nextLine();
+						for (int i = 0; i < thriller.size(); i++) {
+							System.out.println(thriller.get(i).getId() + ": " + 
+						thriller.get(i).getTitle());
 						}
+						break;
 					case "c":
-						for (Handler movie : comedy) {
-							System.out.println(movie.toString() + "\n");
-							choice = in.nextLine();
+						for (int i = 0; i < comedy.size(); i++) {
+							System.out.println(comedy.get(i).getId() + ": " + 
+						comedy.get(i).getTitle());
 						}
+						break;
 					case "d":
-						for (Handler movie : drama) {
-							System.out.println(movie.toString() + "\n");
-							choice = in.nextLine();
+						for (int i = 0; i < drama.size(); i++) {
+							System.out.println(drama.get(i).getId() + ": " + 
+						drama.get(i).getTitle());
 						}
+						break;
 					case "s":
-						for (Handler movie : scifi) {
-							System.out.println(movie.toString() + "\n");
-							choice = in.nextLine();
+						for (int i = 0; i < scifi.size(); i++) {
+							System.out.println(scifi.get(i).getId() + ": " + 
+						scifi.get(i).getTitle());
 						}
+						break;
 					}
 
+					choice = in.nextLine();
 					System.out.println("Thank you for renting from WarcraftRental!");
-
-					// Choice T, list TV-series.
-				} else if (menu.equalsIgnoreCase("T")) {
-
+					
 					// Choice Q, quit menu and close connection.
 				} else if (menu.equalsIgnoreCase("Q")) {
 					dbLogic.closeDatabase();
 					break;
 				}
 
-				in.close();
 				dbLogic.closeDatabase();
 
 			} catch (Exception e) {
@@ -81,15 +76,17 @@ public class App {
 		}
 	}
 
+	/**
+	 * Connect to our database and run the setup.
+	 * Fetch the data and put it into lists,
+	 * so we don't have to do a database-request each time.
+	 */
 	public static void setUpDB() {
 
 		try {
-			//dbLogic = new Database(dataSource);
-			//dbLogic.setUp();
-			
 			dbLogic = new Database("jdbc:postgresql://localhost:5432/postgres",
 			        "postgres",
-			        "postgres");
+			        "Lx0e1utY");
 			dbLogic.setUp();
 		} catch (SQLException e) {
 			System.err.println("Connection to database failed: " + e.getMessage());
