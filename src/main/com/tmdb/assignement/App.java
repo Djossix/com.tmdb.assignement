@@ -86,7 +86,7 @@ public class App {
 		try {
 			dbLogic = new Database("jdbc:postgresql://localhost:5432/postgres",
 			        "postgres",
-			        "Lx0e1utY");
+			        "postgres");
 			dbLogic.setUp();
 		} catch (SQLException e) {
 			System.err.println("Connection to database failed: " + e.getMessage());
