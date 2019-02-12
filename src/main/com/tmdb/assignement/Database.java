@@ -8,7 +8,7 @@ public class Database {
 	// THIS INFO IS NEEDED WHEN CONNECTING FROM SERVER!
 	// String url = "jdbc:postgresql://localhost:5432/postgres";
 	// String user name = "postgres";
-	// String password = "Lx0e1utY";
+	// String password = "postgres";
 	// Database database = new Database(url, user name, password);
 	// database.connectDatabase();
 	// database.setUp();
